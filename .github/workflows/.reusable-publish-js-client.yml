@@ -70,6 +70,11 @@ jobs:
           [[ "$should_use_sem_ver_version" == "true" ]] && echo "NEW_JS_CLIENT_VERSION=${sem_ver_version}" >> ${GITHUB_ENV} || echo "NEW_JS_CLIENT_VERSION=${commit_sha_version}" >> ${GITHUB_ENV}
           [[ "$should_use_sem_ver_version" == "true" ]] && echo "NEW_JS_CLIENT_TAG=release-${sem_ver_version}" >> ${GITHUB_ENV} || echo "NEW_JS_CLIENT_TAG=${commit_sha}" >> ${GITHUB_ENV}
 
+      - name: Set version output
+        id: set-version-output
+        run: |
+              echo "npm-package-version=${NEW_JS_CLIENT_VERSION}" >> $GITHUB_OUTPUT
+
       - name: Publish js-client npm package
         run: |
           cd js-client
