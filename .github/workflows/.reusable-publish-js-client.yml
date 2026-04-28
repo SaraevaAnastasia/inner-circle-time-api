@@ -2,6 +2,9 @@ name: Publish js-client
 
 on:
   workflow_call:
+    outputs:
+      npm-package-version:
+        value: ${{ jobs.publish-js-client.outputs.npm-package-version }}
 
 jobs:
   publish-js-client:
@@ -11,6 +14,8 @@ jobs:
       contents: write
       # Required for OIDC (https://docs.npmjs.com/trusted-publishers#github-actions-configuration)
       id-token: write
+    outputs:
+      npm-package-version: ${{ steps.set-version-output.outputs.npm-package-version }}
     steps:
       - name: Check out the repo
         uses: actions/checkout@v6
