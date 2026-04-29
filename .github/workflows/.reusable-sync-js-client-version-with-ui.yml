@@ -25,4 +25,5 @@ jobs:
            "client_payload": {
               "client-version": "${{ inputs.js-client-package-version }}",
               "commit_message": ${{ toJson(github.event.head_commit.message) }}
-            }}'
+            }
+          }'
