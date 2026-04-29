@@ -6,10 +6,6 @@ on:
       npm-package-version:
         required: true
         type: string
-      path-to-file:
-        required: false
-        type: string
-        default: 'package.json'
       
 jobs:
   trigger-env:
@@ -18,21 +14,15 @@ jobs:
       - name: Checkout 
         uses: actions/checkout@v3
         
-      - name: Write short-sha to GitHub Env
-        run: |
-          echo "SHORT_SHA=$(git rev-parse --short ${{ github.sha }})" >> $GITHUB_ENV
-        
-      - name: Trigger sync-services in time-ui
+      - name: Trigger sync-js-client-version in time-ui
         # NOTE: quotes for commit_message not needed because toJson writes quotes automatically 
         run: |
           curl -X POST https://api.github.com/repos/SaraevaAnastasia/inner-circle-time-ui/dispatches \
           -H "Accept: application/vnd.github.everest-preview+json" \
-          -u ${{ secrets.INNER_CIRCLE_VERSION_SYNC_TRIGGER_TOKEN  }} \
+          -u ${{ secrets.INNER_CIRCLE_TIME_UI_TRIGGER_TOKEN  }} \
           -d '{
           "event_type": "latest-api-js-client-version",
            "client_payload": {
               "client-version": "${{ inputs.npm-package-version }}",
               "commit_message": ${{ toJson(github.event.head_commit.message) }},
-              "short_sha": "${{ env.SHORT_SHA }}",
-              "path_to_file": "${{ inputs.path-to-file }}"
             }}'
