@@ -1,4 +1,4 @@
-name: Sync UI JS-client version with API
+name: Sync UI JS-client package version
 
 on:
   workflow_call:
@@ -8,7 +8,7 @@ on:
         type: string
       
 jobs:
-  sync-ui-js-client-version-with-api:
+  sync-ui-js-client-package-version:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout 
@@ -25,5 +25,4 @@ jobs:
            "client_payload": {
               "client_version": "${{ inputs.js-client-package-version }}",
               "commit_message": ${{ toJson(github.event.head_commit.message) }}
-            }
-          }'
+            }}'
