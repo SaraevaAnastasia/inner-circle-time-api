@@ -342,7 +342,7 @@ export class HttpClient<SecurityDataType = unknown> {
 
 /**
  * @title inner-circle-time-api
- * @version 1.5.11
+ * @version 1.5.12
  * @baseUrl http://localhost:6507/
  */
 export class Api<
